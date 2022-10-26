@@ -18,6 +18,7 @@ namespace ReadDiskInfor
 {
     public partial class Form1 : Form
     {
+        //cong hoa xa hoi chu nghia viet nam
         public Form1()
         {
             InitializeComponent();

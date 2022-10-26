@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace ReadDiskInfor.DTO
 {
     [Serializable]
+    //Doc thong tin o cung
     public class DiskInfor
     {
         public StringBuilder VolumeName;
