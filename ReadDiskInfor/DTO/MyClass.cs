@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ReadDiskInfor.DTO
 {
+    //import thu vien kernel.dll
     public class MyClass
     {
         // import from kernel32.dll function GetDiskFreeSpaceEx (total amount)
