@@ -44,6 +44,7 @@ namespace ReadDiskInfor.DTO
 
         public string GetDiskType(string drive, StringBuilder VolumeName, out ulong SpC, out ulong BpS, out uint SerialNumber)
         {
+            
             ulong NoFC = 0;
             ulong TNoC = 0;
             MyClass.GetDiskFreeSpace(drive, out SpC, out BpS, out NoFC, out TNoC);

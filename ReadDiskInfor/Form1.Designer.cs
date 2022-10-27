@@ -53,6 +53,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.cbbVolume = new System.Windows.Forms.ComboBox();
             this.btnRead = new System.Windows.Forms.Button();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.status = new System.Windows.Forms.Label();
+            this.lbStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbSpC
@@ -180,7 +183,7 @@
             listViewItem5});
             this.lvClient.Location = new System.Drawing.Point(419, 39);
             this.lvClient.Name = "lvClient";
-            this.lvClient.Size = new System.Drawing.Size(254, 354);
+            this.lvClient.Size = new System.Drawing.Size(254, 317);
             this.lvClient.TabIndex = 107;
             this.lvClient.UseCompatibleStateImageBehavior = false;
             this.lvClient.View = System.Windows.Forms.View.Details;
@@ -193,7 +196,7 @@
             // 
             // btnScanIP
             // 
-            this.btnScanIP.Location = new System.Drawing.Point(472, 434);
+            this.btnScanIP.Location = new System.Drawing.Point(459, 433);
             this.btnScanIP.Name = "btnScanIP";
             this.btnScanIP.Size = new System.Drawing.Size(151, 58);
             this.btnScanIP.TabIndex = 108;
@@ -221,7 +224,7 @@
             // 
             // btnRead
             // 
-            this.btnRead.Location = new System.Drawing.Point(194, 434);
+            this.btnRead.Location = new System.Drawing.Point(181, 433);
             this.btnRead.Name = "btnRead";
             this.btnRead.Size = new System.Drawing.Size(151, 58);
             this.btnRead.TabIndex = 112;
@@ -229,11 +232,37 @@
             this.btnRead.UseVisualStyleBackColor = true;
             this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(419, 367);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(254, 23);
+            this.progressBar.TabIndex = 113;
+            // 
+            // status
+            // 
+            this.status.AutoSize = true;
+            this.status.Location = new System.Drawing.Point(687, 370);
+            this.status.Name = "status";
+            this.status.Size = new System.Drawing.Size(0, 20);
+            this.status.TabIndex = 115;
+            // 
+            // lbStatus
+            // 
+            this.lbStatus.AutoSize = true;
+            this.lbStatus.Location = new System.Drawing.Point(415, 9);
+            this.lbStatus.Name = "lbStatus";
+            this.lbStatus.Size = new System.Drawing.Size(0, 20);
+            this.lbStatus.TabIndex = 116;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(822, 521);
+            this.Controls.Add(this.lbStatus);
+            this.Controls.Add(this.status);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.btnRead);
             this.Controls.Add(this.cbbVolume);
             this.Controls.Add(this.label9);
@@ -282,6 +311,9 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbbVolume;
         private System.Windows.Forms.Button btnRead;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Label status;
+        private System.Windows.Forms.Label lbStatus;
     }
 }
 
