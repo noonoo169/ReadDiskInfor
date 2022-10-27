@@ -25,7 +25,10 @@ namespace ReadDiskInfor
             Control.CheckForIllegalCrossThreadCalls = false;
             SConnect();
         }
-
+        /// <summary>
+        /// /Tesst push
+        /// </summary>
+        /// ///////////////
         // Server
         IPEndPoint IP;
         Socket socClient;
