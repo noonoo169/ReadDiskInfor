@@ -19,12 +19,16 @@ namespace ReadDiskInfor
 {
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// jiewjfiifweqffweqfwqfwfff
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false;
             SConnect();
         }
+
         /// <summary>
         /// /Tesst push
         /// </summary>
