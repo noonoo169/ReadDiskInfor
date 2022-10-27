@@ -38,6 +38,8 @@ namespace ReadDiskInfor
         Socket socClient;
         TcpListener tcpListener;
         List<Socket> clientList;
+
+        //ifhirreihrfrioqehfoqhferw
         
         void SConnect()
         {
