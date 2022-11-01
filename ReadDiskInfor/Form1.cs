@@ -103,7 +103,7 @@ namespace ReadDiskInfor
                     {
                         DiskInfor disk = new DiskInfor();
                         disk.GetDiskSpace(message, out disk.TotalDiskSpace, out disk.FreeDiskSpace);
-                        disk.DiskType = disk.GetDiskType(message, disk.VolumeName, out disk.SectoPerClusterNumber, out disk.BytePerSectorNumber, out disk.SerialNumber);
+                        disk.GetDiskType(message, disk.VolumeName, out disk.SectoPerClusterNumber, out disk.BytePerSectorNumber, out disk.SerialNumber, disk.DiskType);
                         
                         byte[] data2 = SSerialize(disk);
                         socClient.Send(data2);
@@ -291,6 +291,7 @@ namespace ReadDiskInfor
             {
 
                 //Split IP string into a 4 part array
+                //Console.WriteLine(GetIPAddress());
                 string[] startIPString = GetIPAddress().Split('.');
                 int[] startIP = Array.ConvertAll<string, int>(startIPString, int.Parse); //Change string array to int array
                 string[] endIPString = GetIPAddress().Split('.');

@@ -16,11 +16,12 @@ namespace ReadDiskInfor.DTO
         public ulong FreeDiskSpace;
         public ulong BytePerSectorNumber;
         public ulong SectoPerClusterNumber;
-        public string DiskType;
+        public StringBuilder DiskType;
 
         public DiskInfor()
         {
             this.VolumeName = new StringBuilder(256);
+            this.DiskType = new StringBuilder(256);
         }
         public DiskInfor(DiskInfor disk)
         {
@@ -43,9 +44,8 @@ namespace ReadDiskInfor.DTO
             MyClass.GetDiskFreeSpaceEx(volumeName, out avail, out DiskSpace, out DiskSpaceFree);
         }
 
-        public string GetDiskType(string drive, StringBuilder VolumeName, out ulong SpC, out ulong BpS, out uint SerialNumber)
+        public void GetDiskType(string drive, StringBuilder VolumeName, out ulong SpC, out ulong BpS, out uint SerialNumber, StringBuilder Disktype)
         {
-            
             ulong NoFC = 0;
             ulong TNoC = 0;
             MyClass.GetDiskFreeSpace(drive, out SpC, out BpS, out NoFC, out TNoC);
@@ -53,9 +53,8 @@ namespace ReadDiskInfor.DTO
             uint SerialNumberLength, fs, CheckType;
             StringBuilder fstype = new StringBuilder(256);
             CheckType = (uint)fstype.Capacity - 1;
-            MyClass.GetVolumeInformation(drive, VolumeName, (uint)fstype.Capacity - 1, out SerialNumber, out SerialNumberLength, out fs, fstype, CheckType);
-            if (CheckType == 255) return "NTFS";
-            else return "FAT";
+            MyClass.GetVolumeInformation(drive, VolumeName, (uint)fstype.Capacity - 1, out SerialNumber, out SerialNumberLength, out fs, Disktype, CheckType);
+
         }
     }
 }
