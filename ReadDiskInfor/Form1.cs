@@ -19,9 +19,6 @@ namespace ReadDiskInfor
 {
     public partial class Form1 : Form
     {
-        /// <summary>
-        /// jiewjfiifweqffweqfwqfwfff
-        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -29,17 +26,11 @@ namespace ReadDiskInfor
             SConnect();
         }
 
-        /// <summary>
-        /// /Tesst push
-        /// </summary>
-        /// ///////////////
-        // Server
+        /// <Server>
         IPEndPoint IP;
         Socket socClient;
         TcpListener tcpListener;
         List<Socket> clientList;
-
-        //ifhirreihrfrioqehfoqhferw
         
         void SConnect()
         {
@@ -54,17 +45,16 @@ namespace ReadDiskInfor
                     while (true)
                     {
                         tcpListener.Start();
-                        socClient = tcpListener.AcceptSocket();
-                        clientList.Add(socClient);
-
                         
+                            socClient = tcpListener.AcceptSocket();
+                            clientList.Add(socClient);
 
-
-                        Thread receive = new Thread(SReceive);
-                        receive.IsBackground = true;
-                        receive.Start(socClient);
-
-                        // Gửi danh sách các phân vùng 
+                            Console.WriteLine(clientList.Count());
+                            Thread receive = new Thread(SReceive);
+                            receive.IsBackground = true;
+                            receive.Start(socClient);
+                        
+                       
                     }
                 }
                 catch
@@ -77,12 +67,12 @@ namespace ReadDiskInfor
             Listen.Start();
 
         }
-        void SSend(DiskInfor disk)
+        void SSend(DiskInfor disk, Socket socClient)
         {
-            foreach (Socket client in clientList)
+            foreach (Socket c in clientList)
             {
-                if (socClient == client)
-                    client.Send(SSerialize(disk));
+                if (socClient == c)
+                    c.Send(SSerialize(disk));
             }
         }
         void SReceive(Object obj)
@@ -92,7 +82,7 @@ namespace ReadDiskInfor
             {
                 byte[] data1 = new byte[1024 * 10000];
                 DriveInfo[] list = DriveInfo.GetDrives();
-                socClient.Send(SSerialize(list));
+                socClient.Send(SSerialize(list)); // Gửi danh sách các phân vùng 
                 while (true)
                 {
                     byte[] data = new byte[1024 * 10000];
@@ -104,9 +94,7 @@ namespace ReadDiskInfor
                         DiskInfor disk = new DiskInfor();
                         disk.GetDiskSpace(message, out disk.TotalDiskSpace, out disk.FreeDiskSpace);
                         disk.GetDiskType(message, disk.VolumeName, out disk.SectoPerClusterNumber, out disk.BytePerSectorNumber, out disk.SerialNumber, disk.DiskType);
-                        
-                        byte[] data2 = SSerialize(disk);
-                        socClient.Send(data2);
+                        SSend(disk, client);
                     }
 
                 }
@@ -117,31 +105,26 @@ namespace ReadDiskInfor
                // CClose();
             }
         }
- 
-        
-        // Gom mảnh phân mảnh
-        byte[] SSerialize(object obj)
+
+        bool CheckClient(Socket check)
         {
-            MemoryStream stream = new MemoryStream();
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, obj);
-            return stream.ToArray();
+            foreach (Socket c in clientList)
+            {
+                if (check == c)
+                    return false;
+            }
+            return true;
         }
-        object SDeSerialize(byte[] data)
-        {
-            MemoryStream stream = new MemoryStream(data);
-            BinaryFormatter formatter = new BinaryFormatter();
-            return formatter.Deserialize(stream);
-        }
+        /// </Server>
 
 
-        // Client 
+        /// <Client>
         IPEndPoint IPc;
         TcpClient client;
         Stream stream;
         DiskInfor diskClient = new DiskInfor();
         DriveInfo[] Volume;
-        string ipHost;
+        string ipHost = "";
         string volumeName = "";
 
         void CConnect()
@@ -152,12 +135,13 @@ namespace ReadDiskInfor
                 client = new TcpClient();
                 client.Connect(IPc);
                 stream = client.GetStream();
-                lbStatus.Text = "Connected !!";
+                lbStatus.Text = "Connected to " + ipHost;
 
                 byte[] data = new byte[1024 * 10000];
                 stream.Read(data, 0, data.Length);
-                GetAllDiskVolume(data);
 
+                GetAllDiskVolume(data); // Nhận danh sách ổ đĩa từ Server
+                    
             }
             catch
             {
@@ -171,9 +155,14 @@ namespace ReadDiskInfor
         }
         void CClose()
         {
-            if(client != null)
-            client.Close();
-
+            if (client != null)
+            {
+                client.Close();
+                lbStatus.Text = "";
+                ipHost = "";
+                volumeName = "";
+                
+            }
         }
         void CReceive()
         {
@@ -193,8 +182,25 @@ namespace ReadDiskInfor
                 CClose();
             }
         }
+        /// </Client>
+       
 
-        void GetAllDiskVolume(byte[] data)
+        // Gom mảnh phân mảnh
+        byte[] SSerialize(object obj)
+        {
+            MemoryStream stream = new MemoryStream();
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, obj);
+            return stream.ToArray();
+        }
+        object SDeSerialize(byte[] data)
+        {
+            MemoryStream stream = new MemoryStream(data);
+            BinaryFormatter formatter = new BinaryFormatter();
+            return formatter.Deserialize(stream);
+        }
+
+        public void GetAllDiskVolume(byte[] data)
         {
             Volume = (DriveInfo[])SDeSerialize(data);
             for (int i = 0; i < Volume.Length; i++)
@@ -202,61 +208,33 @@ namespace ReadDiskInfor
                 cbbVolume.Items.Add(Volume[i] );
             }
         }
-        void AddDiskInfor(DiskInfor disk)
+        public void AddDiskInfor(DiskInfor disk)
         {
-            tbVolumeName.Text = disk.VolumeName.ToString();
+            tbVolumeName.Text   = disk.VolumeName.ToString();
             tbSerialNumber.Text = disk.SerialNumber.ToString();
-            tbDiskType.Text = disk.DiskType.ToString();
-            tbDiskSpace.Text = disk.ConvertBytesToGigabytes(disk.TotalDiskSpace).ToString() + " GB" ;
-            tbDiskFree.Text = disk.ConvertBytesToGigabytes(disk.FreeDiskSpace).ToString() + " GB";
-            tbBpS.Text = disk.BytePerSectorNumber.ToString();
-            tbSpC.Text = disk.SectoPerClusterNumber.ToString();
+            tbDiskType.Text     = disk.DiskType.ToString();
+            tbDiskSpace.Text    = disk.ConvertBytesToGigabytes(disk.TotalDiskSpace).ToString() + " GB" ;
+            tbDiskFree.Text     = disk.ConvertBytesToGigabytes(disk.FreeDiskSpace).ToString() + " GB";
+            tbBpS.Text          = disk.BytePerSectorNumber.ToString();
+            tbSpC.Text          = disk.SectoPerClusterNumber.ToString();
         }
-         
-        private void btnRead_Click(object sender, EventArgs e)
+        public void Resetlabel()
         {
-            if(volumeName != "")
-            {
-                byte[] data = new byte[1024 * 10000];
-                data = SSerialize(volumeName);
-                stream.Write(data, 0, data.Length);
-            }
+            tbVolumeName.Text   = "";
+            tbSerialNumber.Text = "";
+            tbDiskType.Text     = "";
+            tbDiskSpace.Text    = "";
+            tbDiskFree.Text     = "";
+            tbBpS.Text          = "";
+            tbSpC.Text          = "";
         }
-
-        private void lvClient_SelectedIndexChanged(object sender, EventArgs e)
+        public void ResetcbbVolume()
         {
+            cbbVolume.Text = "";
+            //for (int i = 0; i < cbbVolume.Items.Count; i++)
+            //    cbbVolume.Items.RemoveAt(i);
             cbbVolume.Items.Clear();
-            if (lvClient.SelectedIndices.Count <= 0)
-            {
-                return;
-            }
-            int intselectedindex = lvClient.SelectedIndices[0];
-            if (intselectedindex >= 0)
-            {
-                if (ipHost != lvClient.Items[intselectedindex].Text)
-                {
-                    CClose();
-                    ipHost = lvClient.Items[intselectedindex].Text;
-                    //ipHost = "192.168.0.100";
-                    Console.WriteLine(ipHost);
-                    //tbSpC.Text = lvClient.Items[intselectedindex].Text;
-                    CConnect();
-                }
-            }
-            
         }
-
-        private void cbbVolume_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            volumeName = cbbVolume.GetItemText(cbbVolume.SelectedItem).ToString(); 
-        }
-
-        private void btnScanIP_Click(object sender, EventArgs e)
-        {
-            Thread myThread = new Thread(() => scan2());
-            myThread.Start();
-        }
-
         public string GetIPAddress()
         {
             string IPAddress = string.Empty;
@@ -273,25 +251,11 @@ namespace ReadDiskInfor
             }
             return IPAddress;
         }
-
-        public void scan2()
+        public void ScanIP()
         {
-            //lvClient.Items.Clear();
-            //lvClient.Items.Add(new ListViewItem() { Text = "127.0.0.1" });
-            //string sHostName = Dns.GetHostName();
-            //Console.WriteLine("Host name: {0}", sHostName);
-            //IPHostEntry ipE = Dns.GetHostByName(sHostName);
-            //IPAddress[] IpA = ipE.AddressList;
-            //for (int i = 0; i < IpA.Length; i++)
-            //{
-            //    lvClient.Items.Add(new ListViewItem() { Text = IpA[i].ToString() });
-            //}
-
+            
             try
             {
-
-                //Split IP string into a 4 part array
-                //Console.WriteLine(GetIPAddress());
                 string[] startIPString = GetIPAddress().Split('.');
                 int[] startIP = Array.ConvertAll<string, int>(startIPString, int.Parse); //Change string array to int array
                 string[] endIPString = GetIPAddress().Split('.');
@@ -329,12 +293,7 @@ namespace ReadDiskInfor
                         {
                             break;
                         }
-
-                        ///lblStatus.ForeColor = System.Drawing.Color.Green; //Set status label for current IP address
-                        //lblStatus.Text = "Scanning: " + ipAddress;
-
-                        //Log pinged IP address in listview
-                        //Grabs DNS information to obtain system info
+                  
                         if (reply.Status == IPStatus.Success)
                         {
                             try
@@ -360,13 +319,6 @@ namespace ReadDiskInfor
 
                     startIP[3] = 1; //If 4th octet reaches 255, reset back to 1
                 
-
-                //Re-enable buttons
-                //button1.Enabled = true;
-                // cmdStop.Enabled = false;
-                // txtIP.Enabled = true;
-                //lblStatus.ForeColor = System.Drawing.Color.Green;
-                //lblStatus.Text = "Done!";
                 status.Text = "Done";
                 MessageBox.Show("Scanning done!\nFound " + count + " hosts.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //Catch exception that throws when stopping thread, caused by ping waiting to be acknowledged
@@ -374,24 +326,78 @@ namespace ReadDiskInfor
             catch (ThreadAbortException tex)
             {
                 Console.WriteLine(tex.StackTrace);
-                //cmdScan.Enabled = true;
-                //cmdStop.Enabled = false;
-                //txtIP.Enabled = true;
-                //txtIP2.Enabled = true;
-                //lblStatus.ForeColor = System.Drawing.Color.Red;
-                //lblStatus.Text = "Scanning stopped";
             }
-            //Catch invalid IP types
             catch (Exception ex)
             {
                 Console.WriteLine(ex.StackTrace);
-                //cmdScan.Enabled = true;
-                //cmdStop.Enabled = false;
-                // txtIP.Enabled = true;
-                //txtIP2.Enabled = true;
-                //lblStatus.ForeColor = System.Drawing.Color.Red;
-                //lblStatus.Text = "Invalid IP range";
             }
+        }
+         
+        private void btnRead_Click(object sender, EventArgs e)
+        {
+            if(volumeName != "" && client != null)
+            {
+                byte[] data = new byte[1024 * 10000];
+                data = SSerialize(volumeName);
+                stream.Write(data, 0, data.Length);
+            }
+        }
+
+        Thread myThread  ;
+        private void btnScanIP_Click(object sender, EventArgs e)
+        {
+            myThread = new Thread(() => ScanIP());
+            myThread.IsBackground = true;
+            myThread.Start();
+           
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            volumeName = "";
+            ResetcbbVolume();
+            Resetlabel();
+            if ( ipHost != "")
+                CConnect();
+            //Console.WriteLine(cbbVolume.Items.Count);
+        }
+
+        private void btnDisconnect_Click(object sender, EventArgs e)
+        {
+            CClose();
+            ResetcbbVolume();
+            Resetlabel();
+        }
+
+        private void lvClient_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvClient.SelectedIndices.Count <= 0)
+            {
+                return;
+            }
+            int intselectedindex = lvClient.SelectedIndices[0];
+            if (intselectedindex >= 0)
+            {
+                
+                string temp  = lvClient.Items[intselectedindex].Text;
+                lbStatus.Text = "You choose IP: " + temp;
+                //Nhập ip tay.
+                //ipHost = "192.168.0.104"; 
+                ipHost = temp;
+                Console.WriteLine(temp);
+                    
+            }
+            
+        }
+
+        private void cbbVolume_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            volumeName = cbbVolume.GetItemText(cbbVolume.SelectedItem).ToString(); 
+        }
+
+        private void tbIP_TextChanged(object sender, EventArgs e)
+        {
+            ipHost = tbIP.Text;
         }
     }
 }
