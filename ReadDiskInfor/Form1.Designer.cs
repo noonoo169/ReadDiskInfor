@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem21 = new System.Windows.Forms.ListViewItem("192.168.0.102");
-            System.Windows.Forms.ListViewItem listViewItem22 = new System.Windows.Forms.ListViewItem("10.234.210.195");
-            System.Windows.Forms.ListViewItem listViewItem23 = new System.Windows.Forms.ListViewItem("123..162.179.255");
-            System.Windows.Forms.ListViewItem listViewItem24 = new System.Windows.Forms.ListViewItem("123.234.231");
-            System.Windows.Forms.ListViewItem listViewItem25 = new System.Windows.Forms.ListViewItem("127.0.0.1");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("192.168.0.102");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("10.234.210.195");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("123..162.179.255");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("123.234.231");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("127.0.0.1");
             this.tbSpC = new System.Windows.Forms.TextBox();
             this.tbBpS = new System.Windows.Forms.TextBox();
             this.tbDiskFree = new System.Windows.Forms.TextBox();
@@ -54,7 +54,6 @@
             this.cbbVolume = new System.Windows.Forms.ComboBox();
             this.btnRead = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.status = new System.Windows.Forms.Label();
             this.lbStatus = new System.Windows.Forms.Label();
             this.btnConnect = new System.Windows.Forms.Button();
             this.btnDisconnect = new System.Windows.Forms.Button();
@@ -66,127 +65,113 @@
             // 
             // tbSpC
             // 
-            this.tbSpC.Location = new System.Drawing.Point(175, 391);
-            this.tbSpC.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbSpC.Location = new System.Drawing.Point(262, 602);
             this.tbSpC.Name = "tbSpC";
-            this.tbSpC.Size = new System.Drawing.Size(151, 20);
+            this.tbSpC.Size = new System.Drawing.Size(224, 26);
             this.tbSpC.TabIndex = 106;
             // 
             // tbBpS
             // 
-            this.tbBpS.Location = new System.Drawing.Point(175, 355);
-            this.tbBpS.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbBpS.Location = new System.Drawing.Point(262, 546);
             this.tbBpS.Name = "tbBpS";
-            this.tbBpS.Size = new System.Drawing.Size(151, 20);
+            this.tbBpS.Size = new System.Drawing.Size(224, 26);
             this.tbBpS.TabIndex = 105;
             // 
             // tbDiskFree
             // 
-            this.tbDiskFree.Location = new System.Drawing.Point(175, 317);
-            this.tbDiskFree.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbDiskFree.Location = new System.Drawing.Point(262, 488);
             this.tbDiskFree.Name = "tbDiskFree";
-            this.tbDiskFree.Size = new System.Drawing.Size(151, 20);
+            this.tbDiskFree.Size = new System.Drawing.Size(224, 26);
             this.tbDiskFree.TabIndex = 104;
             // 
             // tbDiskSpace
             // 
-            this.tbDiskSpace.Location = new System.Drawing.Point(175, 285);
-            this.tbDiskSpace.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbDiskSpace.Location = new System.Drawing.Point(262, 438);
             this.tbDiskSpace.Name = "tbDiskSpace";
-            this.tbDiskSpace.Size = new System.Drawing.Size(151, 20);
+            this.tbDiskSpace.Size = new System.Drawing.Size(224, 26);
             this.tbDiskSpace.TabIndex = 103;
             // 
             // tbDiskType
             // 
-            this.tbDiskType.Location = new System.Drawing.Point(175, 247);
-            this.tbDiskType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbDiskType.Location = new System.Drawing.Point(262, 380);
             this.tbDiskType.Name = "tbDiskType";
-            this.tbDiskType.Size = new System.Drawing.Size(151, 20);
+            this.tbDiskType.Size = new System.Drawing.Size(224, 26);
             this.tbDiskType.TabIndex = 102;
             // 
             // tbSerialNumber
             // 
-            this.tbSerialNumber.Location = new System.Drawing.Point(175, 214);
-            this.tbSerialNumber.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbSerialNumber.Location = new System.Drawing.Point(262, 329);
             this.tbSerialNumber.Name = "tbSerialNumber";
-            this.tbSerialNumber.Size = new System.Drawing.Size(151, 20);
+            this.tbSerialNumber.Size = new System.Drawing.Size(224, 26);
             this.tbSerialNumber.TabIndex = 101;
             // 
             // tbVolumeName
             // 
-            this.tbVolumeName.Location = new System.Drawing.Point(175, 178);
-            this.tbVolumeName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbVolumeName.Location = new System.Drawing.Point(262, 274);
             this.tbVolumeName.Name = "tbVolumeName";
-            this.tbVolumeName.Size = new System.Drawing.Size(151, 20);
+            this.tbVolumeName.Size = new System.Drawing.Size(224, 26);
             this.tbVolumeName.TabIndex = 100;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(69, 395);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(104, 608);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(97, 13);
+            this.label7.Size = new System.Drawing.Size(142, 20);
             this.label7.TabIndex = 99;
             this.label7.Text = "Số Secter/Cluster :";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(81, 359);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(122, 552);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(86, 13);
+            this.label6.Size = new System.Drawing.Size(124, 20);
             this.label6.TabIndex = 98;
             this.label6.Text = "Số Byte/Secter :";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(103, 319);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(154, 491);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(62, 13);
+            this.label5.Size = new System.Drawing.Size(91, 20);
             this.label5.TabIndex = 97;
             this.label5.Text = "Còn trống : ";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(98, 286);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(147, 440);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 13);
+            this.label4.Size = new System.Drawing.Size(99, 20);
             this.label4.TabIndex = 96;
             this.label4.Text = "Dung lượng :";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(104, 251);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(156, 386);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 13);
+            this.label3.Size = new System.Drawing.Size(90, 20);
             this.label3.TabIndex = 95;
             this.label3.Text = "Định dạng :";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(110, 218);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(165, 335);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
+            this.label2.Size = new System.Drawing.Size(81, 20);
             this.label2.TabIndex = 94;
             this.label2.Text = "Số Serial :";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(106, 182);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(159, 280);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.Size = new System.Drawing.Size(86, 20);
             this.label1.TabIndex = 93;
             this.label1.Text = "Tên ổ đĩa : ";
             // 
@@ -196,15 +181,14 @@
             this.columnHeader1});
             this.lvClient.HideSelection = false;
             this.lvClient.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem21,
-            listViewItem22,
-            listViewItem23,
-            listViewItem24,
-            listViewItem25});
-            this.lvClient.Location = new System.Drawing.Point(551, 203);
-            this.lvClient.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5});
+            this.lvClient.Location = new System.Drawing.Point(826, 312);
             this.lvClient.Name = "lvClient";
-            this.lvClient.Size = new System.Drawing.Size(171, 175);
+            this.lvClient.Size = new System.Drawing.Size(254, 267);
             this.lvClient.TabIndex = 107;
             this.lvClient.UseCompatibleStateImageBehavior = false;
             this.lvClient.View = System.Windows.Forms.View.Details;
@@ -217,10 +201,9 @@
             // 
             // btnScanIP
             // 
-            this.btnScanIP.Location = new System.Drawing.Point(429, 247);
-            this.btnScanIP.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnScanIP.Location = new System.Drawing.Point(644, 380);
             this.btnScanIP.Name = "btnScanIP";
-            this.btnScanIP.Size = new System.Drawing.Size(101, 38);
+            this.btnScanIP.Size = new System.Drawing.Size(152, 58);
             this.btnScanIP.TabIndex = 108;
             this.btnScanIP.Text = "Scan IP";
             this.btnScanIP.UseVisualStyleBackColor = true;
@@ -229,29 +212,26 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(346, 179);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Location = new System.Drawing.Point(519, 275);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(66, 13);
+            this.label9.Size = new System.Drawing.Size(98, 20);
             this.label9.TabIndex = 110;
             this.label9.Text = "Disk Volume";
             // 
             // cbbVolume
             // 
             this.cbbVolume.FormattingEnabled = true;
-            this.cbbVolume.Location = new System.Drawing.Point(349, 203);
-            this.cbbVolume.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbbVolume.Location = new System.Drawing.Point(524, 312);
             this.cbbVolume.Name = "cbbVolume";
-            this.cbbVolume.Size = new System.Drawing.Size(55, 21);
+            this.cbbVolume.Size = new System.Drawing.Size(80, 28);
             this.cbbVolume.TabIndex = 111;
             this.cbbVolume.SelectionChangeCommitted += new System.EventHandler(this.cbbVolume_SelectionChangeCommitted);
             // 
             // btnRead
             // 
-            this.btnRead.Location = new System.Drawing.Point(429, 183);
-            this.btnRead.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRead.Location = new System.Drawing.Point(644, 282);
             this.btnRead.Name = "btnRead";
-            this.btnRead.Size = new System.Drawing.Size(101, 38);
+            this.btnRead.Size = new System.Drawing.Size(152, 58);
             this.btnRead.TabIndex = 112;
             this.btnRead.Text = "Read Infor";
             this.btnRead.UseVisualStyleBackColor = true;
@@ -259,36 +239,24 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(551, 382);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.progressBar.Location = new System.Drawing.Point(826, 588);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(171, 26);
+            this.progressBar.Size = new System.Drawing.Size(256, 40);
             this.progressBar.TabIndex = 113;
-            // 
-            // status
-            // 
-            this.status.AutoSize = true;
-            this.status.Location = new System.Drawing.Point(729, 388);
-            this.status.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(0, 13);
-            this.status.TabIndex = 115;
             // 
             // lbStatus
             // 
             this.lbStatus.AutoSize = true;
-            this.lbStatus.Location = new System.Drawing.Point(411, 140);
-            this.lbStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbStatus.Location = new System.Drawing.Point(616, 215);
             this.lbStatus.Name = "lbStatus";
-            this.lbStatus.Size = new System.Drawing.Size(0, 13);
+            this.lbStatus.Size = new System.Drawing.Size(0, 20);
             this.lbStatus.TabIndex = 116;
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(429, 311);
-            this.btnConnect.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnConnect.Location = new System.Drawing.Point(644, 478);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(101, 38);
+            this.btnConnect.Size = new System.Drawing.Size(152, 58);
             this.btnConnect.TabIndex = 120;
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
@@ -296,10 +264,9 @@
             // 
             // btnDisconnect
             // 
-            this.btnDisconnect.Location = new System.Drawing.Point(429, 373);
-            this.btnDisconnect.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDisconnect.Location = new System.Drawing.Point(644, 574);
             this.btnDisconnect.Name = "btnDisconnect";
-            this.btnDisconnect.Size = new System.Drawing.Size(101, 38);
+            this.btnDisconnect.Size = new System.Drawing.Size(152, 58);
             this.btnDisconnect.TabIndex = 121;
             this.btnDisconnect.Text = "Disconnect";
             this.btnDisconnect.UseVisualStyleBackColor = true;
@@ -310,45 +277,47 @@
             this.header.AutoSize = true;
             this.header.BackColor = System.Drawing.SystemColors.Control;
             this.header.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.header.Location = new System.Drawing.Point(35, 23);
-            this.header.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.header.Location = new System.Drawing.Point(52, 35);
             this.header.Name = "header";
-            this.header.Size = new System.Drawing.Size(718, 108);
+            this.header.Size = new System.Drawing.Size(1073, 163);
             this.header.TabIndex = 122;
             this.header.Text = "Read DiskInfor ";
             this.header.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tbIP
             // 
-            this.tbIP.Location = new System.Drawing.Point(602, 178);
+            this.tbIP.Location = new System.Drawing.Point(903, 274);
+            this.tbIP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbIP.Name = "tbIP";
-            this.tbIP.Size = new System.Drawing.Size(120, 20);
+            this.tbIP.Size = new System.Drawing.Size(178, 26);
             this.tbIP.TabIndex = 123;
             this.tbIP.TextChanged += new System.EventHandler(this.tbIP_TextChanged);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(552, 181);
+            this.label8.Location = new System.Drawing.Point(828, 278);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(44, 13);
+            this.label8.Size = new System.Drawing.Size(62, 20);
             this.label8.TabIndex = 124;
             this.label8.Text = "Type IP";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(369, 140);
+            this.label10.Location = new System.Drawing.Point(554, 215);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(43, 13);
+            this.label10.Size = new System.Drawing.Size(64, 20);
             this.label10.TabIndex = 125;
             this.label10.Text = "Status: ";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 454);
+            this.ClientSize = new System.Drawing.Size(1190, 698);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.tbIP);
@@ -356,7 +325,6 @@
             this.Controls.Add(this.btnDisconnect);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.lbStatus);
-            this.Controls.Add(this.status);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.btnRead);
             this.Controls.Add(this.cbbVolume);
@@ -377,9 +345,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Đồ án mạng máy tính và nguyên lý hệ điều hành";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -408,7 +375,6 @@
         private System.Windows.Forms.ComboBox cbbVolume;
         private System.Windows.Forms.Button btnRead;
         private System.Windows.Forms.ProgressBar progressBar;
-        private System.Windows.Forms.Label status;
         private System.Windows.Forms.Label lbStatus;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Button btnDisconnect;

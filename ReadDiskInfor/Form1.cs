@@ -1,21 +1,16 @@
 ﻿using ReadDiskInfor.DTO;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ReadDiskInfor   
+namespace ReadDiskInfor
 {
     public partial class Form1 : Form
     {
@@ -29,7 +24,7 @@ namespace ReadDiskInfor
         /// <Server>
         IPEndPoint IP;
         Socket socClient;
-        TcpListener tcpListener;
+        TcpListener tcpListener; // lắng nghe kết nối từ client
         List<Socket> clientList;
         
         void SConnect()
@@ -46,7 +41,7 @@ namespace ReadDiskInfor
                     {
                         tcpListener.Start();
                         
-                            socClient = tcpListener.AcceptSocket();
+                            socClient = tcpListener.AcceptSocket(); // trả về 1 đối tượng Socket dùng để gửi nhận dữ liệu
                             clientList.Add(socClient);
 
                             Console.WriteLine(clientList.Count());
@@ -72,7 +67,7 @@ namespace ReadDiskInfor
             foreach (Socket c in clientList)
             {
                 if (socClient == c)
-                    c.Send(SSerialize(disk));
+                    c.Send(SSerialize(disk)); // chỉ gửi dữ liệu về cho client đã yêu cầu
             }
         }
         void SReceive(Object obj)
@@ -120,13 +115,12 @@ namespace ReadDiskInfor
 
         /// <Client>
         IPEndPoint IPc;
-        TcpClient client;
+        TcpClient client; // tạo một client 
         Stream stream;
         DiskInfor diskClient = new DiskInfor();
         DriveInfo[] Volume;
         string ipHost = "";
         string volumeName = "";
-
         void CConnect()
         {
             try
@@ -136,7 +130,6 @@ namespace ReadDiskInfor
                 client.Connect(IPc);
                 stream = client.GetStream();
                 lbStatus.Text = "Connected to " + ipHost;
-
                 byte[] data = new byte[1024 * 10000];
                 stream.Read(data, 0, data.Length);
 
@@ -146,7 +139,6 @@ namespace ReadDiskInfor
             catch
             {
                 MessageBox.Show("Không thể kết nối", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //lbStatus.Text = "Cannot connect";
                 return;
             }
             Thread listen = new Thread(CReceive);
@@ -161,7 +153,6 @@ namespace ReadDiskInfor
                 lbStatus.Text = "";
                 ipHost = "";
                 volumeName = "";
-                
             }
         }
         void CReceive()
@@ -253,84 +244,38 @@ namespace ReadDiskInfor
         }
         public void ScanIP()
         {
-            
-            try
+            string[] startIPString = GetIPAddress().Split('.');
+            int[] startIP = Array.ConvertAll<string, int>(startIPString, int.Parse); //Change string array to int array
+            int count = 0; //Count the number of successful pings
+            Ping myPing;
+            PingReply reply;
+
+            //Progress bar
+            progressBar.Maximum = 254;
+            progressBar.Value = 0;
+            lvClient.Items.Clear();
+            //Loops through the IP range, maxing out at 255
+            for (int y = 1; y < 255; y++)
             {
-                string[] startIPString = GetIPAddress().Split('.');
-                int[] startIP = Array.ConvertAll<string, int>(startIPString, int.Parse); //Change string array to int array
-                string[] endIPString = GetIPAddress().Split('.');
-                int[] endIP = Array.ConvertAll<string, int>(endIPString, int.Parse);
-                endIP[3] = 255;
-                int count = 0; //Count the number of successful pings
-                Ping myPing;
-                PingReply reply;
-                IPAddress addr;
-                IPHostEntry host;
+                string ipAddress = startIP[0] + "." + startIP[1] + "." + startIP[2] + "." + y; //Convert IP array back into a string
 
-                //Progress bar
-                progressBar.Maximum = 255;
-                progressBar.Value = 0;
-                lvClient.Items.Clear();
-                status.Text = "Scanning...";
-                //Loops through the IP range, maxing out at 255
-                    for (int y = 0; y <= 255; y++)
-                    { //4th octet loop
-                        string ipAddress = startIP[0] + "." + startIP[1] + "." + startIP[2] + "." + y; //Convert IP array back into a string
-                        string endIPAddress = endIP[0] + "." + endIP[1] + "." + endIP[2] + "." + (endIP[3] + 1); // +1 is so that the scanning stops at the correct range
-
-                        //If current IP matches final IP in range, break
-                        if (ipAddress == endIPAddress)
-                        {
-                            break;
-                        }
-
-                        myPing = new Ping();
-                        try
-                        {
-                            reply = myPing.Send(ipAddress, 500); //Ping IP address with 500ms timeout
-                        }
-                        catch (Exception ex)
-                        {
-                            break;
-                        }
-                  
-                        if (reply.Status == IPStatus.Success)
-                        {
-                            try
-                            {
-                                addr = IPAddress.Parse(ipAddress);
-                                host = Dns.GetHostEntry(addr);
-                                lvClient.Items.Add(new ListViewItem(new String[] { ipAddress })); //Log successful pings
-                                count++;
-                            }
-                            catch
-                            {
-
-                                lvClient.Items.Add(new ListViewItem(new String[] { ipAddress})); //Logs pings that are successful, but are most likely not windows machines
-                                count++;
-                            }
-                        }
-                        else
-                        {
-                            //lvResult.Items.Add(new ListViewItem(new String[] { ipAddress, "n/a", "Down" })); //Log unsuccessful pings
-                        }
-                        progressBar.Value += 1; //Increase progress bar
+                myPing = new Ping();
+                try
+                {
+                    reply = myPing.Send(ipAddress,500); //Ping IP address with 500ms timeout
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        lvClient.Items.Add(new ListViewItem(ipAddress)); //Log successful pings
+                        count++;
                     }
-
-                    startIP[3] = 1; //If 4th octet reaches 255, reset back to 1
-                
-                status.Text = "Done";
-                MessageBox.Show("Scanning done!\nFound " + count + " hosts.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //Catch exception that throws when stopping thread, caused by ping waiting to be acknowledged
+                }
+                catch
+                {
+                    break;
+                }
+                progressBar.Value += 1; //Increase progress bar
             }
-            catch (ThreadAbortException tex)
-            {
-                Console.WriteLine(tex.StackTrace);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.StackTrace);
-            }
+            MessageBox.Show("Scanning done!\nFound " + count + " hosts.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
          
         private void btnRead_Click(object sender, EventArgs e)
@@ -360,6 +305,7 @@ namespace ReadDiskInfor
             if ( ipHost != "")
                 CConnect();
             //Console.WriteLine(cbbVolume.Items.Count);
+            ipHost = "";
         }
 
         private void btnDisconnect_Click(object sender, EventArgs e)

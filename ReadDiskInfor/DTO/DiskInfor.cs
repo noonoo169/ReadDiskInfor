@@ -44,16 +44,17 @@ namespace ReadDiskInfor.DTO
             MyClass.GetDiskFreeSpaceEx(volumeName, out avail, out DiskSpace, out DiskSpaceFree);
         }
 
-        public void GetDiskType(string drive, StringBuilder VolumeName, out ulong SpC, out ulong BpS, out uint SerialNumber, StringBuilder Disktype)
+        public void GetDiskType(string drive, StringBuilder VolumeName, out ulong SpC, 
+                                out ulong BpS, out uint SerialNumber, StringBuilder Disktype)
         {
             ulong NoFC = 0;
             ulong TNoC = 0;
             MyClass.GetDiskFreeSpace(drive, out SpC, out BpS, out NoFC, out TNoC);
-
             uint SerialNumberLength, fs, CheckType;
             StringBuilder fstype = new StringBuilder(256);
             CheckType = (uint)fstype.Capacity - 1;
-            MyClass.GetVolumeInformation(drive, VolumeName, (uint)fstype.Capacity - 1, out SerialNumber, out SerialNumberLength, out fs, Disktype, CheckType);
+            MyClass.GetVolumeInformation(drive, VolumeName, (uint)fstype.Capacity - 1, out SerialNumber, 
+                                        out SerialNumberLength, out fs, Disktype, CheckType);
 
         }
     }
